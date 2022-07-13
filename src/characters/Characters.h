@@ -2,7 +2,7 @@
 
 class Characters {
 public:
-    Characters(int shaderProgram);
+    Characters(int shaderProgram, float baseHeight);
 
     void Draw(
             TranslateMatrix *translateMatrix,
@@ -50,4 +50,6 @@ private:
             float x_position,
             float z_position
     );
+
+    float baseHeight;
 };

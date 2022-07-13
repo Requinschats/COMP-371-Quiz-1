@@ -3,6 +3,7 @@
 
 Skateboard::Skateboard(int shaderProgram) {
     this->shaderProgram = shaderProgram;
+    this->height = 1.0f;
 }
 
 void Skateboard::Draw(TranslateMatrix *translateMatrix, float x_position, float z_position) {

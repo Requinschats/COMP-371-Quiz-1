@@ -31,8 +31,8 @@ int main(int argc, char *argv[]) {
     TranslateMatrix *translateMatrix = new TranslateMatrix(0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
     RenderMode renderMode = RenderMode::triangles;
 
-    float olafXPosition = 0.0f;
-    float olafZPosition = 0.0f;
+    float charactersXPosition = -10.0f;
+    float charactersZPosition = 0.0f;
     float olafScale = 1.0f;
 
     float lastFrameTime = glfwGetTime();
@@ -49,15 +49,17 @@ int main(int argc, char *argv[]) {
         (new Grid(shaderProgram))->Draw(translateMatrix);
         (new ArrowAxis())->Draw(translateMatrix, shaderProgram);
         (new WorldCube(shaderProgram))->Draw(translateMatrix);
-        (new Skateboard(shaderProgram))->Draw(translateMatrix, olafXPosition, olafZPosition);
-        (new Skateboard(shaderProgram))->Draw(translateMatrix, 7.0f, olafZPosition);
-        (new Skateboard(shaderProgram))->Draw(translateMatrix, 14.0f, olafZPosition);
-        (new Characters(shaderProgram))->Draw(translateMatrix, -10.0f, olafZPosition-3.0f);
+        (new Skateboard(shaderProgram))->Draw(translateMatrix, charactersXPosition, charactersZPosition);
+
+        Skateboard *skateboard = new Skateboard(shaderProgram);
+        skateboard->Draw(translateMatrix, charactersXPosition, charactersZPosition);
+
+        (new Characters(shaderProgram, skateboard->height))->Draw(translateMatrix, -10.0f, charactersZPosition);
 //        (new Olaf(shaderProgram))->Draw(
 //                renderMode,
 //                translateMatrix,
-//                olafXPosition,
-//                olafZPosition,
+//                charactersXPosition,
+//                charactersZPosition,
 //                olafScale);
 
         handleViewInputs(window,
@@ -67,8 +69,8 @@ int main(int argc, char *argv[]) {
                          dt);
         handleActionInputs(
                 window,
-                &olafXPosition,
-                &olafZPosition,
+                &charactersXPosition,
+                &charactersZPosition,
                 &olafScale,
                 &renderMode
         );

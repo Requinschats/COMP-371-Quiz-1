@@ -11,4 +11,5 @@ public:
     );
 
     int shaderProgram;
+    float height;
 };
