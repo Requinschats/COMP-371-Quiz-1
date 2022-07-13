@@ -1,4 +1,4 @@
-# COMP371-A1
+# COMP371 Quiz 1
 
 ### Implemented controls:
 
@@ -21,7 +21,3 @@
 #### Author Email (if any question): olivier.fradette.roy@gmail.com
 
 #### Student ID: 40074024
-
-![Alt text](https://user-images.githubusercontent.com/39419311/177330507-4b575e32-f771-40e1-acfb-0ecde8853524.png)
-
-![Alt text](https://user-images.githubusercontent.com/39419311/177331212-2ef73ef7-01ff-442e-808c-b90cba5da191.png)
