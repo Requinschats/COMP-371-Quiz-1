@@ -24,7 +24,7 @@ set(EXEC A1)
 
 file(GLOB SRC src/*.cpp src/*/*.cpp src/*/*.h src/sources/*/*.cpp src/sources/*/*.h)
 
-add_executable(${EXEC} ${SRC} src/WorldCube/WorldCube.cpp src/WorldCube/WorldCube.h src/skateboard/Skateboard.cpp src/skateboard/Skateboard.h)
+add_executable(${EXEC} ${SRC} src/WorldCube/WorldCube.cpp src/WorldCube/WorldCube.h src/skateboard/Skateboard.cpp src/skateboard/Skateboard.h src/characters/Characters.cpp src/characters/Characters.h)
 target_link_libraries(${EXEC} OpenGL::GL glew_s glfw glm)
 
 list(APPEND BIN ${EXEC})
