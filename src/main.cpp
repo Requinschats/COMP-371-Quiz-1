@@ -35,6 +35,8 @@ int main(int argc, char *argv[]) {
     float charactersZPosition = 0.0f;
     float olafScale = 1.0f;
 
+    int selectedCharacterIndex = 0;
+
     float lastFrameTime = glfwGetTime();
     while (!glfwWindowShouldClose(window)) {
         controller->setCameraPosition();

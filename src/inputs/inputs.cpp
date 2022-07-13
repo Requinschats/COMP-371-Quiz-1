@@ -1,6 +1,7 @@
 #include "../Grid/Grid.h"
 #include "glm/glm.hpp"
 #include "inputs.h"
+#include <iostream>
 
 using namespace glm;
 float cameraSpeed = 5.0f;
@@ -77,7 +78,8 @@ void handleActionInputs(
         float *olafXPosition,
         float *olafZPosition,
         float *olafScale,
-        RenderMode *renderMode
+        RenderMode *renderMode,
+        int *selectedCharacterIndex
 ) {
     if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
         *olafXPosition = Grid::getRandomGridCoordinate();
@@ -97,5 +99,23 @@ void handleActionInputs(
     }
     if (glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS) {
         *renderMode = RenderMode::triangles;
+    }
+    if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS) {
+        *selectedCharacterIndex = 0;
+    }
+    if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS) {
+        *selectedCharacterIndex = 1;
+    }
+    if (glfwGetKey(window, GLFW_KEY_3) == GLFW_PRESS) {
+        *selectedCharacterIndex = 2;
+    }
+    if (glfwGetKey(window, GLFW_KEY_4) == GLFW_PRESS) {
+        *selectedCharacterIndex = 3;
+    }
+    if (glfwGetKey(window, GLFW_KEY_5) == GLFW_PRESS) {
+        *selectedCharacterIndex = 4;
+    }
+    if (glfwGetKey(window, GLFW_KEY_6) == GLFW_PRESS) {
+        *selectedCharacterIndex = 5;
     }
 }
