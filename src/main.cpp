@@ -12,6 +12,7 @@
 #include "ArrowAxis/ArrowAxis.h"
 #include "Grid/Grid.h"
 #include "inputs/inputs.h"
+#include "WorldCube/WorldCube.h"
 
 using namespace glm;
 
@@ -35,7 +36,7 @@ int main(int argc, char *argv[]) {
     float lastFrameTime = glfwGetTime();
     while (!glfwWindowShouldClose(window)) {
         controller->setCameraPosition();
-        glClearColor(0.5, 0.5, 1, 1.0);
+//        glClearColor(0.5, 0.5, 1, 1.0);
 
         float dt = glfwGetTime() - lastFrameTime;
         lastFrameTime += dt;
@@ -45,12 +46,13 @@ int main(int argc, char *argv[]) {
 
         (new Grid(shaderProgram))->Draw(translateMatrix);
         (new ArrowAxis())->Draw(translateMatrix, shaderProgram);
-        (new Olaf(shaderProgram))->Draw(
-                renderMode,
-                translateMatrix,
-                olafXPosition,
-                olafZPosition,
-                olafScale);
+        (new WorldCube(shaderProgram))->Draw(translateMatrix);
+//        (new Olaf(shaderProgram))->Draw(
+//                renderMode,
+//                translateMatrix,
+//                olafXPosition,
+//                olafZPosition,
+//                olafScale);
 
         handleViewInputs(window,
                          shaderProgram,
