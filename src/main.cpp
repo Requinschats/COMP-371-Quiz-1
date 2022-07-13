@@ -13,6 +13,7 @@
 #include "Grid/Grid.h"
 #include "inputs/inputs.h"
 #include "WorldCube/WorldCube.h"
+#include "skateboard/Skateboard.h"
 
 using namespace glm;
 
@@ -47,6 +48,9 @@ int main(int argc, char *argv[]) {
         (new Grid(shaderProgram))->Draw(translateMatrix);
         (new ArrowAxis())->Draw(translateMatrix, shaderProgram);
         (new WorldCube(shaderProgram))->Draw(translateMatrix);
+        (new Skateboard(shaderProgram))->Draw(translateMatrix, olafXPosition, olafZPosition);
+        (new Skateboard(shaderProgram))->Draw(translateMatrix, 7.0f, olafZPosition);
+        (new Skateboard(shaderProgram))->Draw(translateMatrix, 14.0f, olafZPosition);
 //        (new Olaf(shaderProgram))->Draw(
 //                renderMode,
 //                translateMatrix,
