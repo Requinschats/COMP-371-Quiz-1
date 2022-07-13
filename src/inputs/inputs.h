@@ -22,5 +22,6 @@ void handleActionInputs(
         float *olafXPosition,
         float *olafZPosition,
         float *olafScale,
-        RenderMode *renderMode
+        RenderMode *renderMode,
+        int *selectedCharacterIndex
 );

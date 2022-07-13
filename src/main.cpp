@@ -35,6 +35,8 @@ int main(int argc, char *argv[]) {
     float charactersZPosition = 0.0f;
     float olafScale = 1.0f;
 
+    int selectedCharacterIndex = 0;
+
     float lastFrameTime = glfwGetTime();
     while (!glfwWindowShouldClose(window)) {
         controller->setCameraPosition();
@@ -54,7 +56,8 @@ int main(int argc, char *argv[]) {
         Skateboard *skateboard = new Skateboard(shaderProgram);
         skateboard->Draw(translateMatrix, charactersXPosition, charactersZPosition);
 
-        (new Characters(shaderProgram, skateboard->height))->Draw(translateMatrix, -10.0f, charactersZPosition);
+        (new Characters(shaderProgram, skateboard->height, selectedCharacterIndex))
+                ->Draw(translateMatrix, -10.0f, charactersZPosition);
 //        (new Olaf(shaderProgram))->Draw(
 //                renderMode,
 //                translateMatrix,
@@ -72,7 +75,8 @@ int main(int argc, char *argv[]) {
                 &charactersXPosition,
                 &charactersZPosition,
                 &olafScale,
-                &renderMode
+                &renderMode,
+                &selectedCharacterIndex
         );
         glfwSwapBuffers(window);
         glfwWaitEvents();
