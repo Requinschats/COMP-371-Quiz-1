@@ -42,10 +42,10 @@ void handleViewKeyboardInputs(GLFWwindow *window,
         controller->cameraPosition.z += cameraSpeed * dt;
     }
     if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS) {
-        translateMatrix->setRotationAngle(translateMatrix->rotationAngle + 5.0f);
+        translateMatrix->setWorldRotationAngle(translateMatrix->worldRotationAngle + 5.0f);
     }
     if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS) {
-        translateMatrix->setRotationAngle(translateMatrix->rotationAngle - 5.0f);
+        translateMatrix->setWorldRotationAngle(translateMatrix->worldRotationAngle - 5.0f);
     }
     if (glfwGetKey(window, GLFW_KEY_HOME) == GLFW_PRESS) {
         controller->reset();
