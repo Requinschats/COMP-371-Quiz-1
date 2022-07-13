@@ -139,7 +139,7 @@ void Characters::DrawD(TranslateMatrix *translateMatrix, float x_position, float
     //right column
     translateMatrix->setPosition(x_position+letterWidth + 2*lineWidth, baseHeight + this->letterHeight, z_position);
     translateMatrix->setSize(this->lineWidth, this->letterHeight-2*lineWidth, this->lineWidth);
-    translateMatrix->setObjectRotationAngle(220, vec3(-0.5, 0, 0));
+    translateMatrix->setObjectRotationAngle(220, vec3(-1, 0, 0));
     translateMatrix->bindTranslationMatrix(this->shaderProgram);
     cube->Draw();
 
@@ -164,23 +164,28 @@ void Characters::DrawD(TranslateMatrix *translateMatrix, float x_position, float
 
 void Characters::DrawE(TranslateMatrix *translateMatrix, float x_position, float z_position) {
     Cube *cube = new Cube(255.0f, 255.0f, 255.0f, RenderMode::triangles);
+
     translateMatrix->setPosition(x_position, baseHeight + this->letterHeight, z_position);
     translateMatrix->setSize(this->lineWidth, this->letterHeight, this->lineWidth);
+    translateMatrix->setObjectRotationAngle(220, vec3(1.5, 1, 0));
     translateMatrix->bindTranslationMatrix(this->shaderProgram);
     cube->Draw();
 
     translateMatrix->setPosition(x_position+letterWidth-lineWidth, baseHeight + this->letterHeight + 3.5f, z_position);
     translateMatrix->setSize(letterWidth, this->lineWidth, this->lineWidth);
+    translateMatrix->setObjectRotationAngle(220);
     translateMatrix->bindTranslationMatrix(this->shaderProgram);
     cube->Draw();
 
     translateMatrix->setPosition(x_position+letterWidth-lineWidth, baseHeight + this->letterHeight/2+2.5, z_position);
     translateMatrix->setSize(letterWidth, this->lineWidth, this->lineWidth);
+    translateMatrix->setObjectRotationAngle(220);
     translateMatrix->bindTranslationMatrix(this->shaderProgram);
     cube->Draw();
 
     translateMatrix->setPosition(x_position+letterWidth-lineWidth, baseHeight + lineWidth, z_position);
     translateMatrix->setSize(letterWidth, this->lineWidth, this->lineWidth);
+    translateMatrix->setObjectRotationAngle(220);
     translateMatrix->bindTranslationMatrix(this->shaderProgram);
     cube->Draw();
 
@@ -191,13 +196,16 @@ void Characters::DrawE(TranslateMatrix *translateMatrix, float x_position, float
 
 void Characters::DrawT(TranslateMatrix *translateMatrix, float x_position, float z_position) {
     Cube *cube = new Cube(255.0f, 255.0f, 255.0f, RenderMode::triangles);
+
     translateMatrix->setPosition(x_position + letterWidth/2 + lineWidth, baseHeight + this->letterHeight, z_position);
     translateMatrix->setSize(this->lineWidth, this->letterHeight, this->lineWidth);
+    translateMatrix->setObjectRotationAngle(220);
     translateMatrix->bindTranslationMatrix(this->shaderProgram);
     cube->Draw();
 
     translateMatrix->setPosition(x_position+letterWidth-lineWidth, baseHeight + this->letterHeight + 3.5f, z_position);
     translateMatrix->setSize(letterWidth, this->lineWidth, this->lineWidth);
+    translateMatrix->setObjectRotationAngle(220);
     translateMatrix->bindTranslationMatrix(this->shaderProgram);
     cube->Draw();
 
