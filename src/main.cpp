@@ -56,7 +56,8 @@ int main(int argc, char *argv[]) {
         Skateboard *skateboard = new Skateboard(shaderProgram);
         skateboard->Draw(translateMatrix, charactersXPosition, charactersZPosition);
 
-        (new Characters(shaderProgram, skateboard->height))->Draw(translateMatrix, -10.0f, charactersZPosition);
+        (new Characters(shaderProgram, skateboard->height, selectedCharacterIndex))
+                ->Draw(translateMatrix, -10.0f, charactersZPosition);
 //        (new Olaf(shaderProgram))->Draw(
 //                renderMode,
 //                translateMatrix,
@@ -74,7 +75,8 @@ int main(int argc, char *argv[]) {
                 &charactersXPosition,
                 &charactersZPosition,
                 &olafScale,
-                &renderMode
+                &renderMode,
+                &selectedCharacterIndex
         );
         glfwSwapBuffers(window);
         glfwWaitEvents();
