@@ -100,8 +100,8 @@ void Characters::DrawD(TranslateMatrix *translateMatrix, float x_position, float
     translateMatrix->bindTranslationMatrix(this->shaderProgram);
     cube->Draw();
 
-    translateMatrix->setPosition(x_position+letterWidth-lineWidth, this->letterHeight+1, z_position);
-    translateMatrix->setSize(letterWidth, this->lineWidth, this->lineWidth);
+    translateMatrix->setPosition(x_position+letterWidth + 2*lineWidth, this->letterHeight, z_position);
+    translateMatrix->setSize(this->lineWidth, this->letterHeight, this->lineWidth);
     translateMatrix->bindTranslationMatrix(this->shaderProgram);
     cube->Draw();
 
@@ -109,6 +109,12 @@ void Characters::DrawD(TranslateMatrix *translateMatrix, float x_position, float
     translateMatrix->setSize(letterWidth, this->lineWidth, this->lineWidth);
     translateMatrix->bindTranslationMatrix(this->shaderProgram);
     cube->Draw();
+
+    translateMatrix->setPosition(x_position+letterWidth-lineWidth, lineWidth, z_position);
+    translateMatrix->setSize(letterWidth, this->lineWidth, this->lineWidth);
+    translateMatrix->bindTranslationMatrix(this->shaderProgram);
+    cube->Draw();
+
 
     this->letterIndex++;
 }
@@ -120,12 +126,12 @@ void Characters::DrawE(TranslateMatrix *translateMatrix, float x_position, float
     translateMatrix->bindTranslationMatrix(this->shaderProgram);
     cube->Draw();
 
-    translateMatrix->setPosition(x_position+letterWidth-lineWidth, this->letterHeight+1, z_position);
+    translateMatrix->setPosition(x_position+letterWidth-lineWidth, this->letterHeight + 3.5f, z_position);
     translateMatrix->setSize(letterWidth, this->lineWidth, this->lineWidth);
     translateMatrix->bindTranslationMatrix(this->shaderProgram);
     cube->Draw();
 
-    translateMatrix->setPosition(x_position+letterWidth-lineWidth, this->letterHeight + 3.5f, z_position);
+    translateMatrix->setPosition(x_position+letterWidth-lineWidth, this->letterHeight/2+2.5, z_position);
     translateMatrix->setSize(letterWidth, this->lineWidth, this->lineWidth);
     translateMatrix->bindTranslationMatrix(this->shaderProgram);
     cube->Draw();
@@ -140,13 +146,8 @@ void Characters::DrawE(TranslateMatrix *translateMatrix, float x_position, float
 
 void Characters::DrawT(TranslateMatrix *translateMatrix, float x_position, float z_position) {
     Cube *cube = new Cube(255.0f, 255.0f, 255.0f, RenderMode::triangles);
-    translateMatrix->setPosition(x_position, this->letterHeight, z_position);
+    translateMatrix->setPosition(x_position + letterWidth/2 + lineWidth, this->letterHeight, z_position);
     translateMatrix->setSize(this->lineWidth, this->letterHeight, this->lineWidth);
-    translateMatrix->bindTranslationMatrix(this->shaderProgram);
-    cube->Draw();
-
-    translateMatrix->setPosition(x_position+letterWidth-lineWidth, this->letterHeight+1, z_position);
-    translateMatrix->setSize(letterWidth, this->lineWidth, this->lineWidth);
     translateMatrix->bindTranslationMatrix(this->shaderProgram);
     cube->Draw();
 

@@ -52,7 +52,7 @@ int main(int argc, char *argv[]) {
         (new Skateboard(shaderProgram))->Draw(translateMatrix, olafXPosition, olafZPosition);
         (new Skateboard(shaderProgram))->Draw(translateMatrix, 7.0f, olafZPosition);
         (new Skateboard(shaderProgram))->Draw(translateMatrix, 14.0f, olafZPosition);
-        (new Characters(shaderProgram))->Draw(translateMatrix, 2.0f, olafZPosition-3.0f);
+        (new Characters(shaderProgram))->Draw(translateMatrix, -10.0f, olafZPosition-3.0f);
 //        (new Olaf(shaderProgram))->Draw(
 //                renderMode,
 //                translateMatrix,
