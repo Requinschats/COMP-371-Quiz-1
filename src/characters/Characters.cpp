@@ -1,6 +1,9 @@
 #include "Characters.h"
 #include "../Cube/Cube.h"
 #include "../skateboard/Skateboard.h"
+#include "random"
+
+using namespace std;
 
 //Note on the drawing logic (the same in each class):
 // draws the skateboard. The process can be resumed as followed for every cube or part of the object.
@@ -29,12 +32,20 @@ float Characters::getLetterXPosition(float x_position) {
     return x_position + (letterWidth + letterSpacing) * letterIndex;
 }
 
+int Characters::getRandomLightRGBValue() {
+    random_device randomDevice;
+    std::mt19937 gen(randomDevice());
+    //[0,100] matches the range of light colors
+    std::uniform_int_distribution<> distribution(0, 100);
+    return distribution(gen);
+}
+
 // returns a different color if the character is selected by keyboard inputs
 vec3 Characters::getColorFromState(int characterIndex) {
     if (this->selectedCharacterIndex == characterIndex) {
         return {240, 128, 128};
     }
-    return {255.0f, 255.0f, 255.0f};
+    return {getRandomLightRGBValue(), getRandomLightRGBValue(), getRandomLightRGBValue()};
 }
 
 // returns if character is the one selected

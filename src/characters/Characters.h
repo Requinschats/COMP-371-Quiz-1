@@ -69,4 +69,6 @@ private:
     vec3 getColorFromState(int characterIndex);
 
     bool isSelectedCharacter(int characterIndex);
+
+    int getRandomLightRGBValue();
 };
