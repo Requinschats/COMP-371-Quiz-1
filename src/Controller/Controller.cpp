@@ -119,12 +119,15 @@ void Controller::setCameraPositionFromMouse(GLFWwindow *window, float dt) {
     this->cameraHorizontalAngle -= dx * cameraAngularSpeed * dt;
     this->cameraVerticalAngle -= dy * cameraAngularSpeed * dt;
 
+    // clamp the vertical angle to [-85, 85] degrees
     this->cameraVerticalAngle = std::max(-85.0f, std::min(85.0f, this->cameraVerticalAngle));
     this->normalizeCameraHorizontalAngle();
 
+    // convert to radians
     float theta = radians(this->cameraHorizontalAngle);
     float phi = radians(this->cameraVerticalAngle);
 
+    //conversion to spherical coordinates
     this->cameraLookAt = vec3(cosf(phi) * cosf(theta), sinf(phi), -cosf(phi) * sinf(theta));
     vec3 cameraSideVector = glm::cross(this->cameraLookAt, vec3(0.0f, 1.0f, 0.0f));
     glm::normalize(cameraSideVector);
@@ -133,19 +136,25 @@ void Controller::setCameraPositionFromMouse(GLFWwindow *window, float dt) {
 
     this->setCameraPosition(this->cameraPosition, this->cameraLookAt, this->cameraUp);
 
+    //sets new state after rotation
     this->mousePosition.x = mousePosX;
     this->mousePosition.y = mousePosY;
     this->lastMouseState = "";
 }
 
+//zoom in and out after releasing the scroll wheel and moving the mouse.
 void Controller::zoomOutFromMouse(GLFWwindow *window) {
     double mousePosX, mousePosY;
     glfwGetCursorPos(window, &mousePosX, &mousePosY);
+
+    // y mouse movement delta
     double dy = (mousePosY - this->mousePosition.y) * 0.025f;
     this->cameraPosition = vec3(this->cameraPosition.x - dy,
                                 this->cameraPosition.y + dy,
                                 this->cameraPosition.z + dy);
     this->bindCameraPosition();
+
+    // sets new state after zoom
     this->mousePosition.x = mousePosX;
     this->mousePosition.y = mousePosY;
     this->lastMouseState = "";

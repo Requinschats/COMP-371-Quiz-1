@@ -5,6 +5,7 @@
 using namespace glm;
 using namespace std;
 
+//utility function to get the color buffer data
 static array<GLfloat, 36> getColorBufferData(float rgb1, float rgb2, float rgb3) {
     return {
             rgb1, rgb2, rgb3,
@@ -22,6 +23,7 @@ static array<GLfloat, 36> getColorBufferData(float rgb1, float rgb2, float rgb3)
     };
 }
 
+//the cube vertices
 GLfloat vertices[] = {
         // front
         -1.0, -1.0, 1.0,
@@ -35,6 +37,7 @@ GLfloat vertices[] = {
         -1.0, 1.0, -1.0
 };
 
+//pointers to the cube vertices in order not to duplicate storage in the buffer
 GLuint elements[] = {
         // front
         0, 1, 2,
@@ -58,6 +61,8 @@ GLuint elements[] = {
 
 Cube::Cube(float rgb1, float rgb2, float rgb3, RenderMode renderMode) {
     this->renderMode_ = renderMode;
+
+    //stores the cube vertices in a buffer
     GLuint VertexBufferObject;
     glGenVertexArrays(1, &this->cubeVAO_);
     glGenBuffers(1, &VertexBufferObject);
@@ -66,10 +71,11 @@ Cube::Cube(float rgb1, float rgb2, float rgb3, RenderMode renderMode) {
     glBindBuffer(GL_ARRAY_BUFFER, VertexBufferObject);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
+    // dictates the cube vertices layout in the buffer: first three are for position
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *) 0);
 
-    //color buffer
+    // dictates the cube vertices layout in the buffer: last three are for color
     GLuint colorBuffer;
     array<float, 36> colorBufferData = getColorBufferData(rgb1 / 255, rgb2 / 255, rgb3 / 255);
     glGenBuffers(1, &colorBuffer);
@@ -79,6 +85,7 @@ Cube::Cube(float rgb1, float rgb2, float rgb3, RenderMode renderMode) {
     glBindBuffer(GL_ARRAY_BUFFER, colorBuffer);
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void *) 0);
 
+    //buffer for the element array that point to the cube vertices
     GLuint indexBufferObject;
     glGenBuffers(1, &indexBufferObject);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBufferObject);
@@ -93,9 +100,11 @@ Cube::~Cube() {}
 void Cube::Draw() {
     glBindVertexArray(this->cubeVAO_);
     glLineWidth(4.0f);
+    //renders elements here instead of vertices directly
     glDrawElements(getGLRenderMode(), 36, GL_UNSIGNED_INT, 0);
 }
 
+//utility function to select the render mode based on the state
 int Cube::getGLRenderMode() {
     switch (this->renderMode_) {
         case RenderMode::points:
