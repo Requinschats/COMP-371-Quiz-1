@@ -31,6 +31,7 @@ public:
     float worldRotationAngle;
     float objectRotationAngle;
     vec3 pathToRotationMatrix;
+    vec3 worldCenterPosition;
 
     void setPosition(float x_position, float y_position, float z_position);
 

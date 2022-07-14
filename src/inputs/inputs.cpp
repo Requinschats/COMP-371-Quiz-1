@@ -82,6 +82,7 @@ void handleViewMouseInputs(GLFWwindow *window,
 void handleActionInputs(
         GLFWwindow *window,
         TranslateMatrix *translateMatrix,
+        Controller *controller,
         float *olafXPosition,
         float *olafZPosition,
         float *olafScale,
@@ -109,38 +110,76 @@ void handleActionInputs(
     }
     if (glfwGetKey(window, GLFW_KEY_0) == GLFW_PRESS) {
         translateMatrix->objectRotationAngle = 0.0f;
+        translateMatrix->worldCenterPosition = vec3(0.0f, 0.0f, 0.0f);
         *selectedCharacterIndex = 0;
+        controller->reset();
     }
     if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS) {
         translateMatrix->objectRotationAngle = 0.0f;
+        translateMatrix->worldCenterPosition = vec3(-10.0f, 0.0f, -10.0f);
+        controller->cameraPosition = vec3(-10.0f, 20.0f, 20.0f);
+        controller->cameraLookAt = vec3(0, -0.5f, -1.0f);
+        controller->bindCameraPosition();
+        translateMatrix->resetDefault();
         *selectedCharacterIndex = 1;
     }
     if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS) {
         translateMatrix->objectRotationAngle = 0.0f;
+        translateMatrix->worldCenterPosition = vec3(-3.0f, 0.0f, -10.0f);
+        controller->cameraPosition = vec3(-3.0f, 10.0f, 20.0f);
+        controller->bindCameraPosition();
+        translateMatrix->resetDefault();
         *selectedCharacterIndex = 2;
     }
     if (glfwGetKey(window, GLFW_KEY_3) == GLFW_PRESS) {
         translateMatrix->objectRotationAngle = 0.0f;
+        translateMatrix->worldCenterPosition = vec3(4.0f, 0.0f, -10.0f);
+        controller->cameraPosition = vec3(4.0f, 20.0f, 20.0f);
+        controller->cameraLookAt = vec3(0, -0.5f, -1.0f);
+        controller->bindCameraPosition();
+        translateMatrix->resetDefault();
         *selectedCharacterIndex = 3;
     }
     if (glfwGetKey(window, GLFW_KEY_4) == GLFW_PRESS) {
         translateMatrix->objectRotationAngle = 0.0f;
+        translateMatrix->worldCenterPosition = vec3(11.0f, 0.0f, -10.0f);
+        controller->cameraPosition = vec3(11.0f, 10.0f, 20.0f);
+        controller->bindCameraPosition();
+        translateMatrix->resetDefault();
         *selectedCharacterIndex = 4;
     }
     if (glfwGetKey(window, GLFW_KEY_5) == GLFW_PRESS) {
         translateMatrix->objectRotationAngle = 0.0f;
+        translateMatrix->worldCenterPosition = vec3(18.0f, 0.0f, -10.0f);
+        controller->cameraPosition = vec3(18.0f, 20.0f, 20.0f);
+        controller->cameraLookAt = vec3(0, -0.5f, -1.0f);
+        controller->bindCameraPosition();
+        translateMatrix->resetDefault();
         *selectedCharacterIndex = 5;
     }
     if (glfwGetKey(window, GLFW_KEY_6) == GLFW_PRESS) {
         translateMatrix->objectRotationAngle = 0.0f;
+        translateMatrix->worldCenterPosition = vec3(25.0f, 0.0f, -10.0f);
+        controller->cameraPosition = vec3(25.0f, 10.0f, 20.0f);
+        controller->bindCameraPosition();
+        translateMatrix->resetDefault();
         *selectedCharacterIndex = 6;
     }
     if (glfwGetKey(window, GLFW_KEY_7) == GLFW_PRESS) {
         translateMatrix->objectRotationAngle = 0.0f;
+        translateMatrix->worldCenterPosition = vec3(32.0f, 0.0f, -10.0f);
+        controller->cameraPosition = vec3(32.0f, 20.0f, 20.0f);
+        controller->cameraLookAt = vec3(0, -0.5f, -1.0f);
+        controller->bindCameraPosition();
+        translateMatrix->resetDefault();
         *selectedCharacterIndex = 7;
     }
     if (glfwGetKey(window, GLFW_KEY_8) == GLFW_PRESS) {
+        translateMatrix->worldCenterPosition = vec3(40.0f, 0.0f, -10.0f);
         translateMatrix->objectRotationAngle = 0.0f;
+        controller->cameraPosition = vec3(39.0f, 10.0f, 20.0f);
+        controller->bindCameraPosition();
+        translateMatrix->resetDefault();
         *selectedCharacterIndex = 8;
     }
 }

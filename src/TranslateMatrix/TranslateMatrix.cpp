@@ -1,7 +1,6 @@
 #include "TranslateMatrix.h"
 #include "GL/glew.h"
 #include "glm/ext/matrix_transform.hpp"
-#include <iostream>
 
 using namespace glm;
 
@@ -15,12 +14,17 @@ TranslateMatrix::TranslateMatrix(float x_position,
     this->setSize(x_size, y_size, z_size);
     this->setWorldRotationAngle(0.0f);
     this->setObjectRotationAngle(0);
+    this->worldCenterPosition = vec3(0, 0, 0);
 }
 
 void TranslateMatrix::bindTranslationMatrix(int shaderProgram, bool shouldRotateObject) {
-    glm::mat4 translationMatrix =
-            rotate(mat4(1.0f), radians(this->worldRotationAngle), vec3(0.0f, 1.0f, 0.0f))
-            * translate(mat4(1.0f), vec3(position.x, position.y, position.z));
+    glm::mat4 translationMatrix = translate(mat4(1.0f), this->worldCenterPosition);
+    translationMatrix =
+            translationMatrix * rotate(mat4(1.0f), radians(this->worldRotationAngle), vec3(0.0f, 1.0f, 0.0f));
+    translationMatrix = translationMatrix * translate(mat4(1.0f), worldCenterPosition * -1.0f);
+
+
+    translationMatrix = translationMatrix * translate(mat4(1.0f), vec3(position.x, position.y, position.z));
 
     if (shouldRotateObject) {
         translationMatrix = translationMatrix * translate(mat4(1.0f), pathToRotationMatrix);

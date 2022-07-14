@@ -27,7 +27,7 @@ void Controller::setCameraPosition(vec3 cameraPosition, vec3 cameraLookAt, vec3 
     glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, &viewMatrix[0][0]);
 }
 
-void Controller::setCameraPosition() {
+void Controller::bindCameraPosition() {
     mat4 viewMatrix = lookAt(this->cameraPosition,
                              this->cameraPosition + this->cameraLookAt,  // center
                              this->cameraUp); // up
@@ -128,7 +128,7 @@ void Controller::zoomOutFromMouse(GLFWwindow *window) {
     this->cameraPosition = vec3(this->cameraPosition.x - dy,
                                 this->cameraPosition.y + dy,
                                 this->cameraPosition.z + dy);
-    this->setCameraPosition();
+    this->bindCameraPosition();
     this->mousePosition.x = mousePosX;
     this->mousePosition.y = mousePosY;
     this->lastMouseState = "";
