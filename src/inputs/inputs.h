@@ -19,6 +19,7 @@ void handleViewMouseInputs(GLFWwindow *window, Controller *controller, Translate
 
 void handleActionInputs(
         GLFWwindow *window,
+        TranslateMatrix *translateMatrix,
         float *olafXPosition,
         float *olafZPosition,
         float *olafScale,

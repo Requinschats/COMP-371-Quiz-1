@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glm/glm.hpp>
+
 using namespace glm;
 
 class TranslateMatrix {
@@ -23,7 +24,7 @@ public:
                     float y_size,
                     float z_size);
 
-    void bindTranslationMatrix(int shaderProgram, float objectRotationAngle=0);
+    void bindTranslationMatrix(int shaderProgram, bool shouldRotateObject = false);
 
     Position position;
     Size size;
@@ -48,4 +49,6 @@ public:
     void setDefaultRotationAngle();
 
     void resetDefault();
+
+    void setPathToRotationMatrix(vec3 pathToRotationAxis);
 };

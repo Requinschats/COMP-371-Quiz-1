@@ -48,6 +48,12 @@ void handleViewKeyboardInputs(GLFWwindow *window,
     if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS) {
         translateMatrix->setWorldRotationAngle(translateMatrix->worldRotationAngle - 5.0f);
     }
+    if (glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS) {
+        translateMatrix->setObjectRotationAngle(translateMatrix->objectRotationAngle + 5.0f);
+    }
+    if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS) {
+        translateMatrix->setObjectRotationAngle(translateMatrix->objectRotationAngle - 5.0f);
+    }
     if (glfwGetKey(window, GLFW_KEY_HOME) == GLFW_PRESS) {
         controller->reset();
         translateMatrix->resetDefault();
@@ -75,6 +81,7 @@ void handleViewMouseInputs(GLFWwindow *window,
 
 void handleActionInputs(
         GLFWwindow *window,
+        TranslateMatrix *translateMatrix,
         float *olafXPosition,
         float *olafZPosition,
         float *olafScale,
@@ -101,30 +108,39 @@ void handleActionInputs(
         *renderMode = RenderMode::triangles;
     }
     if (glfwGetKey(window, GLFW_KEY_0) == GLFW_PRESS) {
+        translateMatrix->objectRotationAngle = 0.0f;
         *selectedCharacterIndex = 0;
     }
     if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS) {
+        translateMatrix->objectRotationAngle = 0.0f;
         *selectedCharacterIndex = 1;
     }
     if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS) {
+        translateMatrix->objectRotationAngle = 0.0f;
         *selectedCharacterIndex = 2;
     }
     if (glfwGetKey(window, GLFW_KEY_3) == GLFW_PRESS) {
+        translateMatrix->objectRotationAngle = 0.0f;
         *selectedCharacterIndex = 3;
     }
     if (glfwGetKey(window, GLFW_KEY_4) == GLFW_PRESS) {
+        translateMatrix->objectRotationAngle = 0.0f;
         *selectedCharacterIndex = 4;
     }
     if (glfwGetKey(window, GLFW_KEY_5) == GLFW_PRESS) {
+        translateMatrix->objectRotationAngle = 0.0f;
         *selectedCharacterIndex = 5;
     }
     if (glfwGetKey(window, GLFW_KEY_6) == GLFW_PRESS) {
+        translateMatrix->objectRotationAngle = 0.0f;
         *selectedCharacterIndex = 6;
     }
     if (glfwGetKey(window, GLFW_KEY_7) == GLFW_PRESS) {
+        translateMatrix->objectRotationAngle = 0.0f;
         *selectedCharacterIndex = 7;
     }
     if (glfwGetKey(window, GLFW_KEY_8) == GLFW_PRESS) {
+        translateMatrix->objectRotationAngle = 0.0f;
         *selectedCharacterIndex = 8;
     }
 }
