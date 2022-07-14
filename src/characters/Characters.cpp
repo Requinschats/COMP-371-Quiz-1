@@ -1,6 +1,9 @@
 #include "Characters.h"
 #include "../Cube/Cube.h"
 #include "../skateboard/Skateboard.h"
+#include "random"
+
+using namespace std;
 
 //Note on the drawing logic (the same in each class):
 // draws the skateboard. The process can be resumed as followed for every cube or part of the object.
@@ -12,7 +15,7 @@
 //constructor that sets the default values
 Characters::Characters(int shaderProgram, float baseHeight, int selectedCharacterIndex) {
     this->shaderProgram = shaderProgram;
-    //letters shared format
+    //letters shared format. Decided arbitrarily.
     this->letterHeight = 4.0f;
     this->letterWidth = 2.0f;
     this->letterSpacing = 4.0f;
@@ -29,12 +32,20 @@ float Characters::getLetterXPosition(float x_position) {
     return x_position + (letterWidth + letterSpacing) * letterIndex;
 }
 
+int Characters::getRandomLightRGBValue() {
+    random_device randomDevice;
+    std::mt19937 gen(randomDevice());
+    //[0,100] matches the range of light colors
+    std::uniform_int_distribution<> distribution(0, 100);
+    return distribution(gen);
+}
+
 // returns a different color if the character is selected by keyboard inputs
 vec3 Characters::getColorFromState(int characterIndex) {
     if (this->selectedCharacterIndex == characterIndex) {
         return {240, 128, 128};
     }
-    return {255.0f, 255.0f, 255.0f};
+    return {getRandomLightRGBValue(), getRandomLightRGBValue(), getRandomLightRGBValue()};
 }
 
 // returns if character is the one selected
@@ -43,6 +54,8 @@ bool Characters::isSelectedCharacter(int characterIndex) {
 }
 
 //Draw call for my last name's first 8 letters
+//Each character is assigned an index to be able to change the state of the character if selected by keyboard inputs
+//Position if passed down from the getLetterXPosition utility
 void Characters::Draw(TranslateMatrix *translateMatrix, float x_position, float z_position) {
     this->DrawF(translateMatrix, getLetterXPosition(x_position), z_position, 1);
     this->DrawR(translateMatrix, getLetterXPosition(x_position), z_position, 2);
@@ -55,7 +68,7 @@ void Characters::Draw(TranslateMatrix *translateMatrix, float x_position, float 
 }
 
 //Draw logic is explained at the top of this file
-//Note again that simple calculations are made based on shared values for the positions and sizes
+//Note again that simple calculations are made based on shared values for the positions and sizes.
 void Characters::DrawF(TranslateMatrix *translateMatrix, float x_position, float z_position, int characterIndex) {
     bool isSelected = isSelectedCharacter(characterIndex);
     vec3 color = getColorFromState(characterIndex);

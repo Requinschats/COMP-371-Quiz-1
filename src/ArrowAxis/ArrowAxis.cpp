@@ -2,6 +2,7 @@
 #include "ArrowAxis.h"
 #include "../initialization/initialization.h"
 
+// inspiration from https://github.com/lingt-xyz/HorseFarm/blob/master/src/axis.cc for the vertices
 const GLfloat axisVertices[] = {
         0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, //position, color
         5.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
@@ -26,7 +27,7 @@ const GLfloat axisVertices[] = {
 };
 
 ArrowAxis::ArrowAxis() {
-    // Stores the vertices in a buffer
+    // Stores the vertices in a buffer, as for all the other objects
     GLuint VertexBufferObject;
     glGenVertexArrays(1, &this->arrowAxisVAO_);
     glGenBuffers(1, &VertexBufferObject);
@@ -51,10 +52,11 @@ void ArrowAxis::Draw(TranslateMatrix *translateMatrix, GLuint shaderProgram) {
     //sets transformation matrix to default and binds it to the state machine
     translateMatrix->setDefaultPosition();
     translateMatrix->setDefaultSize();
+    //binding the shader program to the state machine so that it can be used in the draw call
     translateMatrix->bindTranslationMatrix(shaderProgram);
     glBindVertexArray(this->arrowAxisVAO_);
 
-    //draws the axis with lines
+    //draws the axis with lines from all the state bound to the state machine
     glDrawArrays(GL_LINES, 0, 18);
     glBindVertexArray(0);
 }

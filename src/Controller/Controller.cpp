@@ -10,9 +10,11 @@ const vec3 defaultCameraUp = vec3(0.0f, 1.0f, 0.0f);
 // Constructor that sets the camera position, look at, up vectors and projection matrix to default values.
 Controller::Controller(int *shaderProgram) {
     this->shaderProgram = *shaderProgram;
+    //required to trigger mouse click action once
     this->lastMouseState = "";
     this->setCameraPosition(defaultCameraPosition, defaultCameraLookAt, defaultCameraUp);
     this->setDefaultLookAt();
+    //set projection matrix to default values
     glm::mat4 initialProjectionMatrix = setInitialProjectionMatrix(this->shaderProgram);
 }
 
@@ -22,9 +24,11 @@ void Controller::setCameraPosition(vec3 cameraPosition, vec3 cameraLookAt, vec3 
     this->cameraLookAt = cameraLookAt;
     this->cameraUp = cameraUp;
 
+    //position of the camera is the eye position
     mat4 viewMatrix = lookAt(this->cameraPosition,
                              this->cameraPosition + this->cameraLookAt,  // center
                              this->cameraUp); // up
+    //sets the corresponding uniform (viewMatrix) variable in the shader program
     GLuint viewMatrixLocation = glGetUniformLocation(this->shaderProgram, "viewMatrix");
     glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, &viewMatrix[0][0]);
 }
@@ -34,6 +38,7 @@ void Controller::bindCameraPosition() {
     mat4 viewMatrix = lookAt(this->cameraPosition,
                              this->cameraPosition + this->cameraLookAt,  // center
                              this->cameraUp); // up
+    //sets the corresponding uniform (viewMatrix) variable in the shader program
     GLuint viewMatrixLocation = glGetUniformLocation(this->shaderProgram, "viewMatrix");
     glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, &viewMatrix[0][0]);
 }
@@ -46,6 +51,7 @@ void Controller::reset() {
     this->setCameraPosition(defaultCameraPosition, defaultCameraLookAt, defaultCameraUp);
 }
 
+//unused function. clean code.
 glm::mat4 Controller::rotateYAxis(float degreeOfRotation) {
     return glm::rotate(glm::mat4(1.0f),
                        glm::radians(degreeOfRotation),
@@ -55,6 +61,7 @@ glm::mat4 Controller::rotateYAxis(float degreeOfRotation) {
 // sets mouse position to passed in values.
 void Controller::setMousePosition(GLFWwindow *window) {
     double xpos, ypos;
+    //gl utility that gets the mouse position x and y coordinates
     glfwGetCursorPos(window, &xpos, &ypos);
     this->mousePosition.x = xpos;
     this->mousePosition.y = ypos;
@@ -63,12 +70,14 @@ void Controller::setMousePosition(GLFWwindow *window) {
 //called when the mouse right button is pressed. Sets the state for the release of the button
 void Controller::handleMouseRightClick(GLFWwindow *window) {
     this->setMousePosition(window);
+    //right refers to mouse right button
     this->lastMouseState = "right";
 }
 
 //called when the mouse left button is pressed. Sets the state for the release of the button
 void Controller::handleMouseMiddleClick(GLFWwindow *window) {
     this->setMousePosition(window);
+    //middle refers to mouse middle button
     this->lastMouseState = "middle";
 }
 
@@ -87,10 +96,11 @@ void Controller::setDefaultLookAt() {
     this->cameraHorizontalAngle = 90.0f;
     this->cameraVerticalAngle = 0.0f;
 
+    // clamp the vertical angle to -85 to 85 degrees
     this->cameraVerticalAngle = std::max(-85.0f, std::min(85.0f, this->cameraVerticalAngle));
     this->normalizeCameraHorizontalAngle();
 
-    // convert to radians
+    // conversion to radians
     float theta = radians(this->cameraHorizontalAngle);
     float phi = radians(this->cameraVerticalAngle);
 
@@ -116,6 +126,7 @@ void Controller::setCameraPositionFromMouse(GLFWwindow *window, float dt) {
     //rotation speed, I prefer a lower speed
     const float cameraAngularSpeed = 6.0f;
 
+    //set new angles from the delta vector of the mouse
     this->cameraHorizontalAngle -= dx * cameraAngularSpeed * dt;
     this->cameraVerticalAngle -= dy * cameraAngularSpeed * dt;
 
@@ -145,13 +156,15 @@ void Controller::setCameraPositionFromMouse(GLFWwindow *window, float dt) {
 //zoom in and out after releasing the scroll wheel and moving the mouse.
 void Controller::zoomOutFromMouse(GLFWwindow *window) {
     double mousePosX, mousePosY;
+    //opengl utility that gets the mouse position x and y coordinates
     glfwGetCursorPos(window, &mousePosX, &mousePosY);
 
-    // y mouse movement delta
+    // y mouse movement delta * sensitivity. Again, I prefer a lower sensitivity.
     double dy = (mousePosY - this->mousePosition.y) * 0.025f;
     this->cameraPosition = vec3(this->cameraPosition.x - dy,
                                 this->cameraPosition.y + dy,
                                 this->cameraPosition.z + dy);
+    //applied the new camera position to the screen.
     this->bindCameraPosition();
 
     // sets new state after zoom

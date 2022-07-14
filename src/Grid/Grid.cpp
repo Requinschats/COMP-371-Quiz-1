@@ -29,8 +29,10 @@ Grid::Grid(int shaderProgram) {
 
     // Dictates the layout of the vertex data
     glEnableVertexAttribArray(0);
+    //[0:2] positions
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(float), (void *) 0);
 
+    //[3:5] colors
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 7 * sizeof(float), (void *) (3 * sizeof(float)));
 
@@ -38,8 +40,8 @@ Grid::Grid(int shaderProgram) {
 }
 
 void Grid::Draw(TranslateMatrix *translateMatrix) {
-    for (int i = -50; i < 50; i++) { //rows
-        for (int j = -50; j < 50; j++) { //columns
+    for (int i = -50; i < 50; i++) { //number of rows
+        for (int j = -50; j < 50; j++) { // number of columns
             translateMatrix->setPosition(i, 0.0f, j);
             //default size
             translateMatrix->setSize(1.0f, 1.0f, 1.0f);
