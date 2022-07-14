@@ -18,7 +18,7 @@ public:
 
     mat4 rotateYAxis(float degreeOfRotation);
 
-    void setCameraPosition();
+    void bindCameraPosition();
 
     void setCameraPositionFromMouse(GLFWwindow *window, float dt);
 

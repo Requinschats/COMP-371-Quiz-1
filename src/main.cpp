@@ -39,7 +39,7 @@ int main(int argc, char *argv[]) {
 
     float lastFrameTime = glfwGetTime();
     while (!glfwWindowShouldClose(window)) {
-        controller->setCameraPosition();
+        controller->bindCameraPosition();
 //        glClearColor(0.5, 0.5, 1, 1.0);
 
         float dt = glfwGetTime() - lastFrameTime;
@@ -73,6 +73,7 @@ int main(int argc, char *argv[]) {
         handleActionInputs(
                 window,
                 translateMatrix,
+                controller,
                 &charactersXPosition,
                 &charactersZPosition,
                 &olafScale,
