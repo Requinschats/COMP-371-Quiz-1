@@ -8,7 +8,6 @@
 #include "Cube/Cube.h"
 #include "Shaders/shaders.h"
 #include "sources/generalShader/GeneralShader.h"
-#include "Olaf/Olaf.h"
 #include "ArrowAxis/ArrowAxis.h"
 #include "Grid/Grid.h"
 #include "inputs/inputs.h"
@@ -32,7 +31,7 @@ int main(int argc, char *argv[]) {
     RenderMode renderMode = RenderMode::triangles;
 
     float charactersXPosition = -10.0f;
-    float charactersZPosition = 0.0f;
+    float charactersZPosition = -10.0f;
     float olafScale = 1.0f;
 
     int selectedCharacterIndex = 0;
@@ -40,7 +39,6 @@ int main(int argc, char *argv[]) {
     float lastFrameTime = glfwGetTime();
     while (!glfwWindowShouldClose(window)) {
         controller->bindCameraPosition();
-//        glClearColor(0.5, 0.5, 1, 1.0);
 
         float dt = glfwGetTime() - lastFrameTime;
         lastFrameTime += dt;
@@ -58,12 +56,6 @@ int main(int argc, char *argv[]) {
 
         (new Characters(shaderProgram, skateboard->height, selectedCharacterIndex))
                 ->Draw(translateMatrix, -10.0f, charactersZPosition);
-//        (new Olaf(shaderProgram))->Draw(
-//                renderMode,
-//                translateMatrix,
-//                charactersXPosition,
-//                charactersZPosition,
-//                olafScale);
 
         handleViewInputs(window,
                          shaderProgram,
