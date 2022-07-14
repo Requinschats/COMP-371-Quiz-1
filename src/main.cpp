@@ -90,10 +90,14 @@ int main(int argc, char *argv[]) {
                 &renderMode,
                 &selectedCharacterIndex
         );
+        //swaps the buffers. Double buffering. The back buffer is the one that is visible.
         glfwSwapBuffers(window);
+
+        //polls for events. If the window is closed, the loop is broken. Otherwise, I had performance issues.
         glfwWaitEvents();
     }
 
+    //terminates the window and frees the memory allocated for it.
     glfwTerminate();
 
     return 0;
