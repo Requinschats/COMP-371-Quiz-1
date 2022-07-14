@@ -72,6 +72,7 @@ int main(int argc, char *argv[]) {
                          dt);
         handleActionInputs(
                 window,
+                translateMatrix,
                 &charactersXPosition,
                 &charactersZPosition,
                 &olafScale,
