@@ -1,5 +1,6 @@
 #include "GeneralShader.h"
 
+// vertex shader source code. Uniform variables are passed to the shader program and the matrix is multiplied view modifications.
 char *getVertexShaderSource() {
     return
             "#version 330 core\n"
@@ -18,7 +19,7 @@ char *getVertexShaderSource() {
             "}";
 }
 
-
+// default fragment shader source code. The color of the pixel is determined by the color of the vertex.
 char *getFragmentShaderSource() {
     return
             "#version 330 core\n"

@@ -19,13 +19,20 @@ using namespace glm;
 
 int main(int argc, char *argv[]) {
 
+    //handles the creation of the window and the OpenGL context
     GLFWwindow *window = initializeWindow();
 
+    // sets shaders used in all rendering
     int shaderProgram = compileAndLinkShaders(getVertexShaderSource(), getFragmentShaderSource());
     glUseProgram(shaderProgram);
+
+    // enables depth testing
     glEnable(GL_DEPTH_TEST);
+
+    //enables face culling. It allows to render only the front face of the triangles. This is changed for the skybox to render the back face.
     glEnable(GL_CULL_FACE);
 
+    //creates the controller object that handles the camera position and rotation
     Controller *controller = new Controller(&shaderProgram);
     TranslateMatrix *translateMatrix = new TranslateMatrix(0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
     RenderMode renderMode = RenderMode::triangles;
