@@ -64,11 +64,14 @@ int main(int argc, char *argv[]) {
         (new ArrowAxis())->Draw(translateMatrix, shaderProgram);
         //the world cube
         (new WorldCube(shaderProgram))->Draw(translateMatrix);
+        //the skateboards
         (new Skateboard(shaderProgram))->Draw(translateMatrix, charactersXPosition, charactersZPosition);
 
         Skateboard *skateboard = new Skateboard(shaderProgram);
         skateboard->Draw(translateMatrix, charactersXPosition, charactersZPosition);
 
+        //the characters
+        //Skateboard height is passed so that characters can sit on top of it
         (new Characters(shaderProgram, skateboard->height, selectedCharacterIndex))
                 ->Draw(translateMatrix, -10.0f, charactersZPosition);
 
