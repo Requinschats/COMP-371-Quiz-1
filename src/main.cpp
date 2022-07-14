@@ -18,21 +18,22 @@
 using namespace glm;
 
 int main(int argc, char *argv[]) {
-
     //handles the creation of the window and the OpenGL context
     GLFWwindow *window = initializeWindow();
 
-    // sets shaders used in all rendering
+    // sets shaders used in all rendering and returns them as a shader program
     int shaderProgram = compileAndLinkShaders(getVertexShaderSource(), getFragmentShaderSource());
+    //bind the program to the state machine
     glUseProgram(shaderProgram);
 
     // enables depth testing
+    // from the doc: OpenGL tests the depth value of a fragment against the content of the depth buffer. OpenGL performs a depth test and if this test passes, the fragment is rendered and the depth buffer is updated with the new depth value. If the depth test fails, the fragment is discarded.
     glEnable(GL_DEPTH_TEST);
 
     //enables face culling. It allows to render only the front face of the triangles. This is changed for the skybox to render the back face.
     glEnable(GL_CULL_FACE);
 
-    //creates the controller object that handles the camera position and rotation
+    //creates the controller object that handles the camera position and rotation. It allows centralizing the state of the view.
     Controller *controller = new Controller(&shaderProgram);
     // Translate Matrix is given to the objects' renderer and handles the translation and the rotation of the objects.
     TranslateMatrix *translateMatrix = new TranslateMatrix(0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);

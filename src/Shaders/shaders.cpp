@@ -12,6 +12,7 @@ int compileAndLinkShaders(char *vertexShaderSource, char *fragmentShaderSource) 
 
     int success;
     char infoLog[512];
+    //sets success state
     glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
 
     // if compilation failed, print error message
@@ -25,6 +26,7 @@ int compileAndLinkShaders(char *vertexShaderSource, char *fragmentShaderSource) 
     glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
     glCompileShader(fragmentShader);
 
+    // sets success state
     glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
     // if compilation failed, print error message
     if (!success) {
@@ -32,12 +34,13 @@ int compileAndLinkShaders(char *vertexShaderSource, char *fragmentShaderSource) 
         std::cerr << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
     }
 
-    //create shader program and attach shaders
+    //create shader program and attach shaders to the program
     int shaderProgram = glCreateProgram();
     glAttachShader(shaderProgram, vertexShader);
     glAttachShader(shaderProgram, fragmentShader);
     glLinkProgram(shaderProgram);
 
+    // sets success state
     glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
     // if linking failed, print error message
     if (!success) {
