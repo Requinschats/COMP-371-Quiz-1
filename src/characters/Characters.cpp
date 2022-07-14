@@ -12,7 +12,7 @@
 //constructor that sets the default values
 Characters::Characters(int shaderProgram, float baseHeight, int selectedCharacterIndex) {
     this->shaderProgram = shaderProgram;
-    //letters shared format
+    //letters shared format. Decided arbitrarily.
     this->letterHeight = 4.0f;
     this->letterWidth = 2.0f;
     this->letterSpacing = 4.0f;
@@ -43,6 +43,8 @@ bool Characters::isSelectedCharacter(int characterIndex) {
 }
 
 //Draw call for my last name's first 8 letters
+//Each character is assigned an index to be able to change the state of the character if selected by keyboard inputs
+//Position if passed down from the getLetterXPosition utility
 void Characters::Draw(TranslateMatrix *translateMatrix, float x_position, float z_position) {
     this->DrawF(translateMatrix, getLetterXPosition(x_position), z_position, 1);
     this->DrawR(translateMatrix, getLetterXPosition(x_position), z_position, 2);
@@ -55,7 +57,7 @@ void Characters::Draw(TranslateMatrix *translateMatrix, float x_position, float 
 }
 
 //Draw logic is explained at the top of this file
-//Note again that simple calculations are made based on shared values for the positions and sizes
+//Note again that simple calculations are made based on shared values for the positions and sizes.
 void Characters::DrawF(TranslateMatrix *translateMatrix, float x_position, float z_position, int characterIndex) {
     bool isSelected = isSelectedCharacter(characterIndex);
     vec3 color = getColorFromState(characterIndex);

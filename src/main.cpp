@@ -36,6 +36,7 @@ int main(int argc, char *argv[]) {
     //creates the controller object that handles the camera position and rotation. It allows centralizing the state of the view.
     Controller *controller = new Controller(&shaderProgram);
     // Translate Matrix is given to the objects' renderer and handles the translation and the rotation of the objects.
+
     TranslateMatrix *translateMatrix = new TranslateMatrix(0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
     // Enum that handles the rendering mode of the objects.
     RenderMode renderMode = RenderMode::triangles;
@@ -50,16 +51,18 @@ int main(int argc, char *argv[]) {
 
     float lastFrameTime = glfwGetTime();
     while (!glfwWindowShouldClose(window)) {
+        //takes the default controller state and binds it to the screen.
         controller->bindCameraPosition();
 
         //frame delta time calculation
         float dt = glfwGetTime() - lastFrameTime;
         lastFrameTime += dt;
 
-        // clears opengl color and depth buffers
+        // clears opengl color and depth buffers. Opengl uses these buffers internally to render the scene.
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // instantiation of the objects. The draw function to render on the screen.
+        //the grid
         (new Grid(shaderProgram))->Draw(translateMatrix);
         //the axis
         (new ArrowAxis())->Draw(translateMatrix, shaderProgram);
@@ -76,11 +79,14 @@ int main(int argc, char *argv[]) {
         (new Characters(shaderProgram, skateboard->height, selectedCharacterIndex))
                 ->Draw(translateMatrix, -10.0f, charactersZPosition);
 
+        //handles the input events related to the view.
         handleViewInputs(window,
                          shaderProgram,
                          controller,
                          translateMatrix,
                          dt);
+
+        //handles the input events related to action (everything else than the view)
         handleActionInputs(
                 window,
                 translateMatrix,

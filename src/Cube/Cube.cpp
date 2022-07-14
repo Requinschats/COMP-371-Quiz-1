@@ -77,10 +77,13 @@ Cube::Cube(float rgb1, float rgb2, float rgb3, RenderMode renderMode) {
 
     // dictates the cube vertices layout in the buffer: last three are for color
     GLuint colorBuffer;
+    //255 division to from regular rgb to rgba
     array<float, 36> colorBufferData = getColorBufferData(rgb1 / 255, rgb2 / 255, rgb3 / 255);
     glGenBuffers(1, &colorBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, colorBuffer);
     glBufferData(GL_ARRAY_BUFFER, sizeof(colorBufferData), &colorBufferData, GL_STATIC_DRAW);
+
+    //points to color
     glEnableVertexAttribArray(1);
     glBindBuffer(GL_ARRAY_BUFFER, colorBuffer);
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void *) 0);
@@ -104,7 +107,7 @@ void Cube::Draw() {
     glDrawElements(getGLRenderMode(), 36, GL_UNSIGNED_INT, 0);
 }
 
-//utility function to select the render mode based on the state
+//utility function to select the openGL render mode based on the state
 int Cube::getGLRenderMode() {
     switch (this->renderMode_) {
         case RenderMode::points:

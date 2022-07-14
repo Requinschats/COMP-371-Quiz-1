@@ -4,7 +4,7 @@
 
 using namespace glm;
 
-//constructor that sets all the state to default values
+//constructor that sets all the state, such as the position and the size to default values
 TranslateMatrix::TranslateMatrix(float x_position,
                                  float y_position,
                                  float z_position,
@@ -40,9 +40,11 @@ void TranslateMatrix::bindTranslationMatrix(int shaderProgram, bool shouldRotate
 
     // scaling the object from the size state
     translationMatrix = translationMatrix * scale(mat4(5.0f), vec3(size.x, size.y, size.z));
+    //sets the corresponding uniform (worldMatrix) variable in the shader program
     GLuint worldMatrixLocation = glGetUniformLocation(shaderProgram, "worldMatrix");
     glUniformMatrix4fv(worldMatrixLocation, 1, GL_FALSE, &translationMatrix[0][0]);
 
+    //resets the object's rotation angle after the bind in order to prevent the object from rotating twice when it is drawn again
     this->resetObjectRotationAngle();
 }
 
@@ -70,6 +72,7 @@ void TranslateMatrix::setPosition(float x_position, float y_position, float z_po
 }
 
 //setter
+//note that size maps to scale in the matrix multiplication
 void TranslateMatrix::setSize(float x_size, float y_size, float z_size) {
     this->size.x = x_size;
     this->size.y = y_size;
