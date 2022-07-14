@@ -48,6 +48,12 @@ void handleViewKeyboardInputs(GLFWwindow *window,
     if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS) {
         translateMatrix->setWorldRotationAngle(translateMatrix->worldRotationAngle - 5.0f);
     }
+    if (glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS) {
+        translateMatrix->setObjectRotationAngle(translateMatrix->objectRotationAngle + 5.0f);
+    }
+    if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS) {
+        translateMatrix->setObjectRotationAngle(translateMatrix->objectRotationAngle - 5.0f);
+    }
     if (glfwGetKey(window, GLFW_KEY_HOME) == GLFW_PRESS) {
         controller->reset();
         translateMatrix->resetDefault();

@@ -67,4 +67,6 @@ private:
     float baseHeight;
 
     vec3 getColorFromState(int characterIndex);
+
+    bool isSelectedCharacter(int characterIndex);
 };

@@ -17,17 +17,17 @@ TranslateMatrix::TranslateMatrix(float x_position,
     this->setObjectRotationAngle(0);
 }
 
-void TranslateMatrix::bindTranslationMatrix(int shaderProgram, float objectRotationAngle) {
+void TranslateMatrix::bindTranslationMatrix(int shaderProgram, bool shouldRotateObject) {
     glm::mat4 translationMatrix =
-//            rotate(mat4(1.0f), radians(this->worldRotationAngle), vec3(0.0f, 1.0f, 0.0f))
-             translate(mat4(1.0f), vec3(position.x, position.y, position.z));
+            rotate(mat4(1.0f), radians(this->worldRotationAngle), vec3(0.0f, 1.0f, 0.0f))
+            * translate(mat4(1.0f), vec3(position.x, position.y, position.z));
 
-    if (this->objectRotationAngle != 0) {
+    if (shouldRotateObject) {
         translationMatrix = translationMatrix * translate(mat4(1.0f), pathToRotationMatrix);
         translationMatrix = translationMatrix * rotate(mat4(1.0f),
-                                                       radians(this->worldRotationAngle+objectRotationAngle),
+                                                       radians(this->objectRotationAngle),
                                                        vec3(0, 1, 0));
-        translationMatrix = translationMatrix * translate(mat4(1.0f), pathToRotationMatrix*-1.0f);
+        translationMatrix = translationMatrix * translate(mat4(1.0f), pathToRotationMatrix * -1.0f);
     }
 
     translationMatrix = translationMatrix * scale(mat4(5.0f), vec3(size.x, size.y, size.z));
@@ -39,11 +39,14 @@ void TranslateMatrix::bindTranslationMatrix(int shaderProgram, float objectRotat
 
 void TranslateMatrix::setObjectRotationAngle(float rotationAngle, vec3 pathToRotationAxis) {
     this->objectRotationAngle = rotationAngle;
+}
+
+void TranslateMatrix::setPathToRotationMatrix(vec3 pathToRotationAxis) {
     this->pathToRotationMatrix = pathToRotationAxis;
 }
 
-void TranslateMatrix::resetObjectRotationAngle(){
-    this->objectRotationAngle = 0;
+void TranslateMatrix::resetObjectRotationAngle() {
+//    this->objectRotationAngle = 0;
     this->pathToRotationMatrix = vec3(0, 0, 0);
 }
 
